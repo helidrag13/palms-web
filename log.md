@@ -7,12 +7,12 @@ Este archivo documenta comandos clave, decisiones técnicas y observaciones impo
 ## 📅 2025-05-04
 
 ### ✅ Decisiones de la jornada
-- Se eligió TypeScript como lenguaje base.
-- Se usará ESM (`"type": "module"`) para mantener consistencia con JS moderno.
-- Se mantendrá la base de datos PostgreSQL ya creada en Heroku.
+- [001] Se eligió TypeScript como lenguaje base.
+- [002] Se usará ESM (`"type": "module"`) para mantener consistencia con JS moderno.
+- [003] Se mantendrá la base de datos PostgreSQL ya creada en Heroku.
 
 ### 🛠️ Configuraciones en la jornada
-- `tsconfig.json`:
+- [009] `tsconfig.json`:
    - Se realizaron los siguientes cambios de sus valores por defecto:
 
       - `"target": "es2016" -> "ES2020"`  
@@ -123,10 +123,10 @@ Este archivo documenta comandos clave, decisiones técnicas y observaciones impo
 
 ### 🛠️ Comandos ejecutados en la jornada
 ```bash
-mkdir palms-web
-cd palms-web
-npm init -y
-npm install express pg
-npm install -D typescript ts-node-dev @types/node @types/express @types/pg
+[004] mkdir palms-web
+[005] cd palms-web
+[006] npm init -y
+[007] npm install express pg
+[008] npm install -D typescript ts-node-dev @types/node @types/express @types/pg
 npx tsc --init
 npm run build
