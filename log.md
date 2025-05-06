@@ -10,9 +10,11 @@ Este archivo documenta comandos clave, decisiones técnicas y observaciones impo
 - [001] Se eligió TypeScript como lenguaje base.
 - [002] Se usará ESM (`"type": "module"`) para mantener consistencia con JS moderno.
 - [003] Se mantendrá la base de datos PostgreSQL ya creada en Heroku.
+- [012] Se da forma un contenido basico inicial de index.ts para lanzar un servidor http usando express y ante un llamado get a la raiz retorne el valor de la hora actual segun el motor de base de datos.
+- [015] En el sitio web de github se creo el repositorio palms-web (vacio) para la aplicacion y se genero un token de autenticacion con acceso de lectura y escritura, especificamente al repositorio, para ser usado como password al momento de sincronizar el proyecto desde el pc hacia github o al reves
 
 ### 🛠️ Configuraciones en la jornada
-- [009] `tsconfig.json`:
+- [011] `tsconfig.json`:
    - Se realizaron los siguientes cambios de sus valores por defecto:
 
       - `"target": "es2016" -> "ES2020"`  
@@ -51,7 +53,7 @@ Este archivo documenta comandos clave, decisiones técnicas y observaciones impo
       - `"skipLibCheck": true`  
         ‣ Omite validación de archivos `.d.ts` en `node_modules`  
         ‣ Acelera compilación y evita errores por definiciones externas incorrectas o incompletas.
-- `Procfile`:
+- [014] `Procfile`:
    - Se creó en la raíz del proyecto con el siguiente contenido:
      ```procfile
      web: node dist/index.js
@@ -60,17 +62,22 @@ Este archivo documenta comandos clave, decisiones técnicas y observaciones impo
       ‣ `web:` indica que este proceso acepta tráfico HTTP (Heroku lo enrutará automáticamente).  
       ‣ `node dist/index.js` especifica que debe ejecutarse el archivo JavaScript generado por el compilador TypeScript (`npm run build`), que se encuentra en la carpeta `dist`.  
       ‣ Es esencial para que Heroku sepa cómo iniciar la aplicación en producción, ya que no compila automáticamente TypeScript ni infiere el comando a ejecutar en apps personalizadas.
-- `package.json`:
+- [007] `package.json`:
    - Se agregaron los siguientes scripts personalizados para el ciclo de desarrollo, compilación y despliegue:
 
      ```json
+     ...
+     "type": "module",
+     ...
      "scripts": {
        "dev": "ts-node-dev src/index.ts",
        "build": "tsc",
        "start": "node dist/index.js"
      }
      ```
-
+   - proposito de "type": "module":
+     - `"type": "module"` 
+       ‣ Indica a node que los archivos *.js son ES Modules (ESM), lo que habilita el uso directo de import … from './archivo.js' en cualquier *.js, sin embargo require ya no funcionara en *.js; si se requiere CommonJS es necesario usar *.cjs.
    - Propósito de cada script:
 
      - `"dev": "ts-node-dev src/index.ts"`  
@@ -92,7 +99,7 @@ Este archivo documenta comandos clave, decisiones técnicas y observaciones impo
      &nbsp;&nbsp;&nbsp;&nbsp;`npm run dev` para desarrollo local,  
      &nbsp;&nbsp;&nbsp;&nbsp;`npm run build` para preparación de despliegue,  
      &nbsp;&nbsp;&nbsp;&nbsp;`npm start` es usado automáticamente por Heroku al hacer deploy.
-- `.gitignore`:
+- [016] `.gitignore`:
    - Se configuró el archivo `.gitignore` en la raíz del proyecto para excluir archivos y carpetas que no deben ser incluidos en el control de versiones (`git`).
 
      Contenido inicial:
@@ -119,14 +126,21 @@ Este archivo documenta comandos clave, decisiones técnicas y observaciones impo
 
    - Comentario adicional:
      ‣ Esta configuración ayuda a mantener el repositorio limpio, seguro y portátil entre entornos de desarrollo y producción.
+- [023] En la configuracion de deploy (pestaña deploy) en la app en heroku se configuro el Deploy method con la opcion github apuntando al repositorio helidrag13/palms-web en github, adicionalmente se activo la opcion inplantacion automatica desde el branch main "Automatic deploys from main", esta opcion hace que al subir desde el pc un nuevo commit al branch main heroku lo detecta, lo compila y de compilar exitosamente la ejecuta  
 
 
 ### 🛠️ Comandos ejecutados en la jornada
 ```bash
-[004] mkdir palms-web
+[004] mkdir palms-web           # crea directorio de la aplicacion
 [005] cd palms-web
-[006] npm init -y
-[007] npm install express pg
-[008] npm install -D typescript ts-node-dev @types/node @types/express @types/pg
-npx tsc --init
-npm run build
+[006] npm init -y               # genera package.json inicial de configuracion de node.js para el proyecto
+[008] npm install express pg    # instalacion de dependencias runtime en el proyecto
+[009] npm install -D typescript ts-node-dev @types/node @types/express @types/pg # dependencias dev + tipados
+[010] npx tsc --init            # genera tsconfig.json inicial de configuracion de typescript para el proyecto
+[013] npm run build             # genera el codigo final de la aplicacion en ./dist al ejecutar el script indicado por el atributo build dentro de scripts en package.json, que resulta ser simplemente el comando tsc, sin embargo ya que la invocacion del comando la hara npm este precarga las definiciones de contexto propias de la aplicacion, por ejemplo antepone ./node_modules/.bin al PATH del proceso; así el comando tsc se resuelve a la versión local instalada en el proyecto, y no a la global del sistema, de existir en package.json definiciones para scripts asociados (hooks) en "prebuild" o "postbuild" los ejecutara en su momento adecuado, todo construyendo las lineas de comando adecuadas segun el sistema operativo, Entonces aunque el script "build": "tsc" solo declara el comando principal; la “magia” (hooks, PATH local, variables) viene de NPM al procesar cualquier npm run <script>. Por eso en entornos CI/Heroku se prefiere npm run build: pues garantiza la versión correcta de TypeScript y permite orquestar pasos adicionales sin cambiar un solo comando en el pipeline.
+[017] git init                              # inicia repositorio Git local
+[018] git checkout -b main                  # crea rama principal
+[019] git remote add origin https://github.com/helidrag13/palms-web.git     # vincula el local con el de GitHub
+[020] git add .                             # indexa todo (sin dist/, está ignorado)
+[021] git commit -m "Primer commit"         # guarda estado inicial
+[022] git push -u origin main               # sube a GitHub (autenticado con PAT)
