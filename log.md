@@ -144,3 +144,22 @@ Este archivo documenta comandos clave, decisiones técnicas y observaciones impo
 [020] git add .                             # indexa todo (sin dist/, está ignorado)
 [021] git commit -m "Primer commit"         # guarda estado inicial
 [022] git push -u origin main               # sube a GitHub (autenticado con PAT)
+```
+
+## 📅 2025-05-07
+
+### ✅ Decisiones de la jornada
+- [001] Se eligió implementar la autenticacion utilizando el servicio de la plataforma Auth0, en el siitio web de auth0 se ha creado una configuracion de gestion de autenticacion para una aplicacoin (aunque alli dice crear aplicacion), eso genera valores de la siguientes variables de entorno especificos para la aplicacion: ISSUER_BASE_URL, CLIENT_ID, y CLIENT_SECRET
+
+### 🛠️ Configuraciones en la jornada
+- [002] En el dashboard de Auth0 para la aplicacion se establecieron los valores de los campos:
+  + URLs a las que se redirecionara al usuario despues del login exitoso, Allowed Callback URLs: http://localhost:3000/callback, https://palms-aacab9433060.herokuapp.com/callback
+  + URLs a las que se redirecionara al usuario despues del cierre de sesion, Allowed Logout URLs: http://localhost:3000/, https://palms-aacab9433060.herokuapp.com/
+  + URLs de los origenes validos, Allowed Web Origins: http://localhost:3000, https://palms-aacab9433060.herokuapp.com
+
+### 🛠️ Comandos ejecutados en la jornada
+```bash
+[003] npm install express-openid-connect dotenv #instala el middleware del servicio de https://auth0.com/
+[004] npm install winston #i
+
+```
