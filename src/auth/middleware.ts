@@ -1,4 +1,5 @@
-import { auth } from 'express-openid-connect';
+import pkg from 'express-openid-connect';
+const { auth } = pkg;
 import { authConfig } from './config.js';
 
 export const authMiddleware = auth({
