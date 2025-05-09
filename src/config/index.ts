@@ -1,5 +1,8 @@
 import dotenv from 'dotenv';
-dotenv.config();
+// Cargar variables desde .env solo en entorno de desarrollo
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config();
+}
 
 const required = (key: string): string => {
   const val = process.env[key];
