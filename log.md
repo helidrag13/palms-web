@@ -160,6 +160,6 @@ Este archivo documenta comandos clave, decisiones técnicas y observaciones impo
 ### 🛠️ Comandos ejecutados en la jornada
 ```bash
 [003] npm install express-openid-connect dotenv #instala el middleware del servicio de https://auth0.com/
-[004] npm install winston #i
+[004] npm install winston #instala la libreria winston de registro de eventos (logging)
 
 ```

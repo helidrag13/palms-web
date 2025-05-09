@@ -1,4 +1,4 @@
-import { config } from '../config';
+import { config } from '../config/index.js';
 
 export const authConfig = {
   issuerBaseURL: config.auth0.issuerBaseURL,

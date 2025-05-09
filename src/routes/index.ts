@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import authRoutes from './auth';
-import profileRoutes from './profile';
-import timeRoutes from './time';
+import authRoutes from './auth.js';
+import profileRoutes from './profile.js';
+import timeRoutes from './time.js';
 
 const router = Router();
 

@@ -1,5 +1,5 @@
 import { Pool } from 'pg';
-import { config } from '../config';
+import { config } from '../config/index.js';
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,

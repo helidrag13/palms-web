@@ -1,8 +1,8 @@
 import express from 'express';
-import { config } from './config';
-import { authMiddleware } from './auth/middleware';
-import routes from './routes';
-import { createLogger } from './utils/logger';
+import { config } from './config/index.js';
+import { authMiddleware } from './auth/middleware.js';
+import routes from './routes/index.js';
+import { createLogger } from './utils/logger.js';
 
 const logger = createLogger();
 const app = express();

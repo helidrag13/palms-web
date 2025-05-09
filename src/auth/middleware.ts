@@ -1,5 +1,5 @@
 import { auth } from 'express-openid-connect';
-import { authConfig } from './config';
+import { authConfig } from './config.js';
 
 export const authMiddleware = auth({
   issuerBaseURL: authConfig.issuerBaseURL,
