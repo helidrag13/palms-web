@@ -156,10 +156,15 @@ Este archivo documenta comandos clave, decisiones técnicas y observaciones impo
   + URLs a las que se redirecionara al usuario despues del login exitoso, Allowed Callback URLs: http://localhost:3000/callback, https://palms-aacab9433060.herokuapp.com/callback
   + URLs a las que se redirecionara al usuario despues del cierre de sesion, Allowed Logout URLs: http://localhost:3000/, https://palms-aacab9433060.herokuapp.com/
   + URLs de los origenes validos, Allowed Web Origins: http://localhost:3000, https://palms-aacab9433060.herokuapp.com
+- [005] Se agregaron al archivo de variables de entorno de la aplicacion .env para pruebas en local las variables de entorno relacionadas con Auth0 asignandoles los valores obtenidos del sitio web de Auth0 para la aplicacion palms: ISSUER_BASE_URL, CLIENT_ID, y CLIENT_SECRET.
+- [006] La variable de entorno en el archivo .env para conexion a la base de datos DATABASE_URL en las pruebas en local, se configuro para conexion a la base de datos online en el host dado que para el funcionamiento del proceso de autenticacion en las pruebas en local se requiere que haya acceso a internet, entonces aprovechando esto la base de datos puede no ser local.
+- [009] En el dashboard de la aplicacion en heroku, en la pestaña settings, en la seccion Config Vars, se añadieron tambien las variables de entorno relacionadas con Auth0 con los valores obtenidos del sitio web de Auth0 para la aplicacion palms: ISSUER_BASE_URL, CLIENT_ID, y CLIENT_SECRET, adicionalmente las variables BASE_URL: https://palms-aacab9433060.herokuapp.com , y APP_SESSION_SECRET: una cadena larga aleatoria
 
 ### 🛠️ Comandos ejecutados en la jornada
 ```bash
 [003] npm install express-openid-connect dotenv #instala el middleware del servicio de https://auth0.com/
 [004] npm install winston #instala la libreria winston de registro de eventos (logging)
+[007] npm run build #correr el script de compilacion para pruebas locales
+[008] npm start # ejecucion local de la aplicacion, prueba exitosa de login http://localhost:3000/login
 
 ```
